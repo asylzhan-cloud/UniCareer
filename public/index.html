@@ -1,0 +1,2662 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="UniCareer — вакансии, резюме и трудоустройство выпускников IT-специальностей"
+    />
+    <title>UniCareer — Платформа карьеры IT-выпускников</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"
+    ></script>
+    <style>
+      :root {
+        --navy: #0f1e36;
+        --navy2: #16294a;
+        --blue: #2856c5;
+        --blue2: #2f63c9;
+        --violet: #5547d8;
+        --violet2: #7b6cf3;
+        --pale: #f4f5fa;
+        --line: #e2e7f0;
+        --text: #17243b;
+        --muted: #6b7890;
+        --green: #168047;
+        --orange: #b97613;
+        --red: #c94343;
+        --shadow: 0 2px 12px rgba(18, 38, 74, 0.05);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--pale);
+        color: var(--text);
+        font:
+          14px/1.55 Inter,
+          Segoe UI,
+          Arial,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .ic {
+        width: 17px;
+        height: 17px;
+        flex: 0 0 auto;
+        stroke-width: 1.9;
+      }
+      .top {
+        height: 60px;
+        background: var(--navy);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 0 max(24px, calc((100vw - 1280px) / 2));
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        box-shadow: 0 2px 12px rgba(9, 20, 40, 0.16);
+      }
+      .logo {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        white-space: nowrap;
+        color: #fff;
+      }
+      .nav {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      .nav a {
+        font-size: 11px;
+        font-weight: 600;
+        color: #dbe4f5;
+        opacity: 0.9;
+        white-space: nowrap;
+      }
+      .nav a:hover {
+        opacity: 1;
+        color: #fff;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      .userbar {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .userchip {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+        cursor: pointer;
+        border-radius: 7px;
+        padding: 3px 5px;
+      }
+      .userchip:hover {
+        background: #ffffff14;
+      }
+      .userchip .ic {
+        width: 12px;
+        height: 12px;
+        opacity: 0.8;
+      }
+      .avatar {
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        background: #e6ebf3;
+        color: #94a2b8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        overflow: hidden;
+      }
+      .avatar .ic {
+        width: 18px;
+        height: 18px;
+        color: #94a2b8;
+      }
+      .iconbtn {
+        background: transparent;
+        border: 0;
+        color: #dbe4f5;
+        padding: 5px;
+        display: flex;
+        border-radius: 7px;
+      }
+      .iconbtn:hover {
+        background: #ffffff1a;
+        color: #fff;
+      }
+      .iconbtn .ic {
+        width: 15px;
+        height: 15px;
+      }
+      .btn {
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fff;
+        padding: 9px 15px;
+        font-weight: 700;
+        color: var(--text);
+        transition:
+          background 0.16s,
+          border-color 0.16s,
+          transform 0.16s,
+          box-shadow 0.16s;
+      }
+      .btn:hover {
+        border-color: #a9b8df;
+        background: #f8faff;
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .btn.primary {
+        background: linear-gradient(100deg, #5142d1, #6a58e8);
+        border-color: #5142d1;
+        color: #fff;
+        box-shadow: 0 3px 10px rgba(85, 71, 216, 0.2);
+      }
+      .btn.primary:hover {
+        background: #4636c2;
+        border-color: #4636c2;
+      }
+      .btn.dark {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: #fff;
+      }
+      .btn.small {
+        padding: 6px 11px;
+        font-size: 11px;
+      }
+      .btn.ghost {
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.55);
+        color: #fff;
+      }
+      .btn.ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: #fff;
+      }
+      .btn.wide {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+      }
+      .btn.danger {
+        color: #c94343;
+        border-color: #f0c9c9;
+        background: #fff;
+      }
+      .btn.danger:hover {
+        background: #fff5f5;
+        border-color: #e2352c;
+        color: #e2352c;
+      }
+      .wrap {
+        max-width: 1280px;
+        margin: 24px auto;
+        padding: 0 24px;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 208px minmax(0, 1fr);
+        gap: 0;
+        align-items: start;
+      }
+      .sidebar {
+        position: sticky;
+        top: 84px;
+        border-right: 1px solid var(--line);
+        padding: 10px 20px 24px 0;
+        background: transparent;
+      }
+      .sidebar h4 {
+        display: none;
+      }
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 10px 13px;
+        margin: 3px 0;
+        border-radius: 8px;
+        color: #5b677e;
+        font-size: 12px;
+        font-weight: 600;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .sidebar a .ic {
+        width: 16px;
+        height: 16px;
+        color: #8b98b0;
+      }
+      .sidebar a:hover {
+        background: #eae9ff;
+        color: #4a3cc4;
+      }
+      .sidebar a:hover .ic {
+        color: #5547d8;
+      }
+      .sidebar a.active {
+        background: #e9e8ff;
+        color: #4a3cc4;
+        font-weight: 800;
+      }
+      .sidebar a.active .ic {
+        color: #2856c5;
+      }
+      section.main {
+        padding-left: 26px;
+        min-width: 0;
+      }
+      .panel,
+      .job,
+      .stat,
+      .formbox {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+      }
+      .panel {
+        padding: 22px;
+        margin-bottom: 16px;
+      }
+      .panel h2 {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.4px;
+        margin: 0 0 14px;
+      }
+      .panel h3 {
+        font-size: 15px;
+        margin: 0 0 10px;
+      }
+      .heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+      .heading h1 {
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: -0.8px;
+        margin: 0;
+      }
+      .subtitle {
+        color: var(--muted);
+        font-size: 12px;
+        margin: -10px 0 20px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .stat {
+        padding: 18px;
+      }
+      .stat strong {
+        display: block;
+        font-size: 27px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: var(--text);
+        line-height: 1.2;
+      }
+      .stat strong.green {
+        color: var(--green);
+      }
+      .stat strong.navy {
+        color: #1b3a6b;
+      }
+      .stat span {
+        font-size: 11px;
+        color: var(--muted);
+        display: block;
+        line-height: 1.4;
+      }
+      .hero {
+        position: relative;
+        overflow: hidden;
+        min-height: 395px;
+        border-radius: 12px;
+        padding: 52px 48px;
+        color: #fff;
+        background:
+          linear-gradient(
+            100deg,
+            rgba(11, 27, 50, 0.96) 0%,
+            rgba(13, 33, 62, 0.88) 38%,
+            rgba(18, 49, 87, 0.45) 70%,
+            rgba(18, 49, 87, 0.08) 100%
+          ),
+          url("https://images.pexels.com/photos/33719788/pexels-photo-33719788.jpeg?auto=compress&cs=tinysrgb&w=1600")
+            center/cover;
+        box-shadow: 0 8px 26px rgba(17, 33, 61, 0.16);
+      }
+      .hero-art {
+        display: block;
+        position: absolute;
+        right: 8px;
+        bottom: 6px;
+        width: 32%;
+        opacity: 0.28;
+        pointer-events: none;
+      }
+      .formbox {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+      .notice {
+        background: #f1efff;
+        border-left: 3px solid #6452df;
+        padding: 12px 15px;
+        border-radius: 7px;
+        font-size: 12px;
+        color: #4a3f9e;
+      }
+      .progress {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .progress i {
+        flex: 1;
+        height: 6px;
+        border-radius: 20px;
+        background: #e9edf4;
+        overflow: hidden;
+        position: relative;
+        display: block;
+      }
+      .progress i:after {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--pct, 70%);
+        background: #2856c5;
+        border-radius: 20px;
+      }
+      .timeline {
+        border-left: 2px solid #e3e7f0;
+        margin-left: 8px;
+        padding-left: 20px;
+      }
+      .timeline > div {
+        position: relative;
+        padding-bottom: 18px;
+      }
+      .timeline > div:before {
+        content: "";
+        position: absolute;
+        left: -27px;
+        top: 5px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #2856c5;
+        box-shadow: 0 0 0 3px #e8efff;
+      }
+      .timeline b {
+        font-size: 13px;
+      }
+      .timeline p {
+        margin: 3px 0;
+        font-size: 12px;
+      }
+      .bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 22px;
+        height: 170px;
+        padding: 10px 4px 0;
+      }
+      .bars > div {
+        flex: 1;
+        text-align: center;
+      }
+      .bars b {
+        display: block;
+        margin: 0 auto 8px;
+        width: 60%;
+        max-width: 54px;
+        border-radius: 6px 6px 0 0;
+        background: linear-gradient(#8fa9ef, #2856c5);
+        min-height: 6px;
+      }
+      .bars small {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.35;
+        display: block;
+      }
+      .hero > h1,
+      .hero > p,
+      .hero > .btn,
+      .heroStats {
+        position: relative;
+        z-index: 1;
+      }
+      .hero h1 {
+        font-size: 35px;
+        line-height: 1.16;
+        letter-spacing: -1.2px;
+        max-width: 520px;
+        margin: 0 0 16px;
+      }
+      .hero p {
+        max-width: 460px;
+        color: #e2ebfa;
+        font-size: 14px;
+        margin: 0 0 26px;
+      }
+      .hero .btn {
+        margin-right: 10px;
+      }
+      .hero .btn.ghost {
+        border-color: rgba(255, 255, 255, 0.65);
+      }
+      .heroStats {
+        display: flex;
+        gap: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        padding-top: 18px;
+        margin-top: 36px;
+        max-width: 640px;
+      }
+      .heroStats .hs {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 0 28px;
+        border-right: 1px solid rgba(255, 255, 255, 0.16);
+      }
+      .heroStats .hs:first-child {
+        padding-left: 0;
+      }
+      .heroStats .hs:last-child {
+        border-right: 0;
+      }
+      .heroStats .hs > .ic {
+        width: 22px;
+        height: 22px;
+        color: #fff;
+      }
+      .heroStats b {
+        display: block;
+        font-size: 19px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      .heroStats small {
+        font-size: 10px;
+        color: #cbd8ee;
+      }
+      .job {
+        padding: 16px 18px;
+        margin-bottom: 11px;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .job:hover {
+        border-color: #b9b0f2;
+        box-shadow: 0 6px 18px rgba(85, 71, 216, 0.09);
+      }
+      .jobtop {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: flex-start;
+      }
+      .jtitle {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        min-width: 0;
+      }
+      .job h3 {
+        font-size: 14px;
+        font-weight: 800;
+        margin: 0 0 2px;
+      }
+      .job .salary {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--text);
+        white-space: nowrap;
+      }
+      .jright {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .heart {
+        width: 31px;
+        height: 31px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #98a4b8;
+        background: #fff;
+        padding: 0;
+      }
+      .heart .ic {
+        width: 16px;
+        height: 16px;
+      }
+      .heart:hover,
+      .heart.active {
+        color: #e2352c;
+        border-color: #f0b8b5;
+        background: #fff5f5;
+      }
+      .heart.active .ic {
+        fill: currentColor;
+      }
+      .tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 11px;
+      }
+      .pill {
+        display: inline-block;
+        background: #eef1f6;
+        color: #66738b;
+        border-radius: 6px;
+        padding: 4px 9px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+      .pill.green {
+        background: #e3f6ea;
+        color: var(--green);
+      }
+      .pill.orange {
+        background: #fff1dc;
+        color: var(--orange);
+      }
+      .pill.blue {
+        background: #e6efff;
+        color: #2459c5;
+      }
+      .pill.violet {
+        background: #ebe8ff;
+        color: #5547d8;
+      }
+      .pill.red {
+        background: #fdeaea;
+        color: var(--red);
+      }
+      .clogo {
+        width: 42px;
+        height: 42px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 19px;
+        color: #fff;
+        flex: 0 0 auto;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+      }
+      .clogo.red {
+        background: #e2352c;
+      }
+      .clogo.green {
+        background: #0f9d58;
+      }
+      .clogo.yellow {
+        background: linear-gradient(135deg, #151515 0 48%, #ffd400 48%);
+        color: #ffd400;
+      }
+      .clogo.blue {
+        background: #1e4fa3;
+      }
+      .clogo.purple {
+        background: #5b49da;
+      }
+      .clogo.lg {
+        width: 52px;
+        height: 52px;
+        font-size: 24px;
+        border-radius: 10px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+      }
+      .tabs button {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 18px;
+        padding: 7px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #5b677e;
+      }
+      .tabs button.active {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: #fff;
+      }
+      .auth .tabs button {
+        flex: 1;
+        text-align: center;
+        border-radius: 8px;
+        padding: 9px 12px;
+      }
+      .progress-card2 {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: #eef1ff;
+        border: 1px solid #dfe5ff;
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin: 16px 0;
+      }
+      .pcircle {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 2px solid #2f63c9;
+        color: #2f63c9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      .pcircle .ic {
+        width: 17px;
+        height: 17px;
+      }
+      .pinfo {
+        flex: 1;
+        min-width: 0;
+      }
+      .pinfo b {
+        font-size: 13px;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .progress-track {
+        height: 7px;
+        border-radius: 20px;
+        background: #d9e1f3;
+        overflow: hidden;
+      }
+      .progress-track i {
+        display: block;
+        height: 100%;
+        border-radius: 20px;
+        background: #2f63c9;
+      }
+      .progress-track.green {
+        background: #e0ece6;
+      }
+      .progress-track.green i {
+        background: #21a15a;
+      }
+      .plink {
+        color: #4a3cc4;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        white-space: nowrap;
+      }
+      .rec-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .rec-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 15px;
+        min-height: 104px;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .rec-card:hover {
+        border-color: #b9b0f2;
+        box-shadow: 0 6px 18px rgba(85, 71, 216, 0.09);
+      }
+      .rec-card b {
+        display: block;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+      .rec-card span {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .rec-card strong {
+        display: block;
+        font-size: 14px;
+        margin-top: 13px;
+      }
+      .person {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+      .person .avatar {
+        width: 58px;
+        height: 58px;
+      }
+      .person .avatar .ic {
+        width: 34px;
+        height: 34px;
+      }
+      .person h3 {
+        margin: 0 0 3px;
+        font-size: 16px;
+      }
+      .person .p-pos {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .person p {
+        margin: 6px 0 0;
+        font-size: 12px;
+        color: #46536b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .person p .ic {
+        width: 14px;
+        height: 14px;
+        color: #8b98b0;
+      }
+      .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .checklist li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 12px;
+        color: #46536b;
+      }
+      .checklist .ic {
+        width: 16px;
+        height: 16px;
+        color: #9aa5b8;
+      }
+      .checklist li.done .ic {
+        color: #21a15a;
+      }
+      .input-icon {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid #dfe4ee;
+        background: #fff;
+        border-radius: 8px;
+        padding: 0 12px;
+        color: #9aa5b8;
+      }
+      .input-icon .ic {
+        width: 16px;
+        height: 16px;
+      }
+      .input-icon input,
+      .input-icon select {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        padding: 11px 0;
+        flex: 1;
+        min-width: 0;
+        color: var(--text);
+        box-shadow: none !important;
+      }
+      .input-icon:focus-within {
+        border-color: #6a58e8;
+        box-shadow: 0 0 0 3px rgba(106, 88, 232, 0.12);
+      }
+      .field {
+        margin-bottom: 13px;
+      }
+      .field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: #48546a;
+        margin-bottom: 6px;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        border: 1px solid #dfe4ee;
+        background: #fff;
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: var(--text);
+        outline: none;
+        width: 100%;
+      }
+      .field textarea {
+        min-height: 92px;
+        resize: vertical;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        border-color: #6a58e8;
+        box-shadow: 0 0 0 3px rgba(106, 88, 232, 0.12);
+      }
+      .formgrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 16px;
+      }
+      .searchrow {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .searchrow .input-icon:first-child {
+        flex: 1;
+      }
+      .searchrow .input-icon:nth-child(2) {
+        width: 185px;
+      }
+      .filterlayout {
+        display: grid;
+        grid-template-columns: 215px minmax(0, 1fr);
+        gap: 18px;
+      }
+      .filterbox {
+        padding: 16px;
+        margin: 0;
+      }
+      .filterbox h3 {
+        font-size: 13px;
+      }
+      .filterbox h4 {
+        font-size: 11px;
+        color: #7b869a;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin: 16px 0 8px;
+      }
+      .filterbox label {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 12px;
+        color: #4d5971;
+        margin: 7px 0;
+        cursor: pointer;
+      }
+      .filterbox input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+        accent-color: #172744;
+        cursor: pointer;
+      }
+      .list-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .list-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 16px;
+        border-bottom: 1px solid #eef0f5;
+      }
+      .list-row:last-child {
+        border-bottom: 0;
+      }
+      .lrmain {
+        flex: 1;
+        min-width: 0;
+      }
+      .lrmain b {
+        display: block;
+        font-size: 13px;
+      }
+      .lrmain small {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .list-row .date {
+        font-size: 11px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .chev {
+        color: #a8b3c4;
+        font-size: 20px;
+        line-height: 1;
+      }
+      .chk {
+        width: 15px;
+        height: 15px;
+        border: 1px solid #cdd5e2;
+        border-radius: 3px;
+        flex: 0 0 auto;
+      }
+      .three {
+        color: #98a4b8;
+        font-size: 17px;
+        padding: 0 4px;
+        line-height: 1;
+      }
+      .backlink {
+        font-size: 11px;
+        color: #6b7890;
+        display: inline-block;
+        margin-bottom: 12px;
+      }
+      .backlink:hover {
+        color: #2856c5;
+      }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .table th {
+        text-align: left;
+        background: #f7f8fc;
+        color: #6b7890;
+        font-size: 10px;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .table td {
+        padding: 11px 12px;
+        border-bottom: 1px solid #eef0f5;
+        vertical-align: middle;
+      }
+      .empty {
+        padding: 26px;
+        text-align: center;
+        color: var(--muted);
+        border: 1px dashed #d8deea;
+        border-radius: 9px;
+        background: #fbfcfe;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+      }
+      .row.space {
+        justify-content: space-between;
+        gap: 14px;
+      }
+      .analytics-tools {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .toolselect {
+        position: relative;
+      }
+      .tool {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 8px;
+        padding: 9px 13px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #46536b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        list-style: none;
+      }
+      .tool::-webkit-details-marker {
+        display: none;
+      }
+      .tool b {
+        font-weight: 800;
+        color: var(--text);
+      }
+      .tool .ic {
+        width: 14px;
+        height: 14px;
+        pointer-events: none;
+        transition: transform 0.15s;
+      }
+      .toolselect[open] .tool {
+        border-color: #b9b0f2;
+        box-shadow: 0 0 0 3px rgba(106, 88, 232, 0.1);
+      }
+      .toolselect[open] .tool .ic {
+        transform: rotate(180deg);
+      }
+      .tool-menu {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 6px);
+        min-width: 100%;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        box-shadow: 0 10px 28px rgba(18, 38, 74, 0.16);
+        padding: 5px;
+        z-index: 25;
+        display: grid;
+        gap: 2px;
+      }
+      .tool-option {
+        border: 0;
+        background: transparent;
+        text-align: left;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #46536b;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .tool-option:hover,
+      .tool-option.active {
+        background: #efeeff;
+        color: #4a3cc4;
+      }
+      .tool-option.active {
+        font-weight: 800;
+      }
+      .analytics-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .donut {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #2856c5 0 var(--p, 0%),
+          #b9cdf5 var(--p, 0%) var(--p2, 100%),
+          #e5ebf6 var(--p2, 100%) 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      .donut > div {
+        width: 106px;
+        height: 106px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .donut b {
+        font-size: 27px;
+        letter-spacing: -1px;
+        color: #2856c5;
+      }
+      .donut small {
+        font-size: 9px;
+        color: var(--muted);
+      }
+      .legend {
+        display: grid;
+        gap: 12px;
+        font-size: 12px;
+      }
+      .legend > div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #46536b;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        flex: 0 0 auto;
+      }
+      .legend .num {
+        font-weight: 800;
+        color: var(--text);
+      }
+      .hbars {
+        display: grid;
+        gap: 14px;
+      }
+      .hbar {
+        display: grid;
+        grid-template-columns: 110px 1fr 38px;
+        gap: 10px;
+        align-items: center;
+        font-size: 11px;
+        color: #46536b;
+      }
+      .hbar .track {
+        height: 10px;
+        background: #e8ecf4;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .hbar .track i {
+        display: block;
+        height: 100%;
+        background: #8fa9ef;
+        border-radius: 6px;
+      }
+      .hbar:first-child .track i {
+        background: #2856c5;
+      }
+      .hbar b {
+        text-align: right;
+        color: var(--text);
+        font-size: 11px;
+      }
+      .auth {
+        max-width: 960px;
+        margin: 50px auto;
+        min-height: 560px;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+      }
+      .auth-brand {
+        position: absolute;
+        top: 38px;
+        left: 36px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -1px;
+      }
+      .auth-brand svg {
+        width: 26px;
+        height: 26px;
+      }
+      .auth:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 43%;
+        border-radius: 12px 0 0 12px;
+        background:
+          radial-gradient(
+            circle at 46% 60%,
+            rgba(117, 97, 238, 0.32) 0%,
+            rgba(117, 97, 238, 0) 56%
+          ),
+          linear-gradient(150deg, #1a3055 0%, #122442 46%, #0a172b 100%);
+      }
+      .auth-visual {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 43%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 62px 16px 10px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .auth-visual svg {
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        overflow: visible;
+      }
+      .auth > .panel {
+        width: 57%;
+        margin: 0;
+        min-height: 560px;
+        border-radius: 0 12px 12px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 50px;
+        box-shadow: 0 14px 38px rgba(17, 37, 66, 0.12);
+      }
+      .auth h1 {
+        font-size: 26px;
+        letter-spacing: -0.7px;
+        margin: 0 0 5px;
+      }
+      .auth .btn.primary {
+        background: var(--navy);
+        border-color: var(--navy);
+        box-shadow: none;
+      }
+      .auth .btn.primary:hover {
+        background: var(--navy2);
+      }
+      .afield {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #e0e5ee;
+        border-radius: 8px;
+        padding: 0 13px;
+        margin-bottom: 12px;
+        color: #9aa5b8;
+      }
+      .afield .ic {
+        width: 16px;
+        height: 16px;
+      }
+      .afield input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        padding: 12px 0;
+        flex: 1;
+        min-width: 0;
+        box-shadow: none !important;
+      }
+      .afield:focus-within {
+        border-color: #6a58e8;
+        box-shadow: 0 0 0 3px rgba(106, 88, 232, 0.1);
+      }
+      .agree {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        font-size: 11px;
+        color: var(--muted);
+        margin: 6px 0 16px;
+      }
+      .agree input {
+        accent-color: #172744;
+        width: 14px;
+        height: 14px;
+      }
+      .agree a {
+        color: #2856c5;
+        text-decoration: underline;
+      }
+      .demoBox {
+        background: #f7f7ff;
+        border: 1px solid #e2dfff;
+        padding: 14px;
+        margin-top: 18px;
+        border-radius: 9px;
+      }
+      .demoBox b {
+        font-size: 12px;
+      }
+      .demoBox p {
+        font-size: 11px;
+        color: var(--muted);
+        margin: 5px 0 10px;
+      }
+      .demoButtons {
+        display: flex;
+        gap: 6px;
+      }
+      .demoButtons .btn {
+        flex: 1;
+        font-size: 10px;
+        padding: 7px 4px;
+      }
+      .footer {
+        border-top: 1px solid var(--line);
+        color: #929db0;
+        text-align: center;
+        padding: 16px;
+        font-size: 11px;
+        margin-top: 32px;
+        background: #fff;
+      }
+      .toast {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        background: #1b2b48;
+        border: 1px solid #7666ea;
+        color: #fff;
+        padding: 12px 17px;
+        border-radius: 8px;
+        box-shadow: 0 12px 35px rgba(23, 42, 75, 0.35);
+        display: none;
+        z-index: 50;
+        font-size: 12px;
+      }
+      @media (max-width: 1080px) {
+        .nav {
+          gap: 11px;
+        }
+        .nav a {
+          font-size: 10px;
+        }
+        .hero h1 {
+          font-size: 31px;
+        }
+        .heroStats .hs {
+          padding: 0 18px;
+        }
+        .grid.four {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 900px) {
+        .top {
+          padding: 0 16px;
+        }
+        .nav {
+          display: none;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          position: static;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+          padding: 8px 0 14px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4px;
+        }
+        .sidebar a {
+          flex: 0 0 auto;
+          margin: 0;
+        }
+        section.main {
+          padding-left: 0;
+        }
+        .filterlayout,
+        .analytics-grid {
+          grid-template-columns: 1fr;
+        }
+        .auth {
+          max-width: 520px;
+          min-height: 0;
+          margin: 28px auto;
+          display: block;
+        }
+        .auth:before,
+        .auth-visual,
+        .auth-brand {
+          display: none;
+        }
+        .auth > .panel {
+          width: 100%;
+          border-radius: 12px;
+          min-height: 0;
+        }
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 620px) {
+        .wrap {
+          padding: 0 12px;
+        }
+        .top {
+          height: 58px;
+        }
+        .logo {
+          font-size: 20px;
+        }
+        .panel {
+          padding: 18px;
+        }
+        .hero {
+          padding: 40px 24px;
+          min-height: 360px;
+        }
+        .hero h1 {
+          font-size: 27px;
+        }
+        .heroStats {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .heroStats .hs {
+          padding: 0 14px;
+        }
+        .heading h1 {
+          font-size: 22px;
+        }
+        .grid,
+        .grid.two,
+        .grid.four,
+        .rec-grid,
+        .formgrid {
+          grid-template-columns: 1fr;
+        }
+        .searchrow {
+          flex-wrap: wrap;
+        }
+        .searchrow .input-icon:nth-child(2) {
+          width: 100%;
+        }
+        .job .salary {
+          font-size: 13px;
+        }
+        .table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <a href="#home" class="logo">Uni<span>Career</span></a>
+      <nav class="nav">
+        <a href="#jobs">Вакансии</a><a href="#companies">Компании</a
+        ><a href="#graduates">Выпускники</a><a href="#employer">Работодателям</a
+        ><a href="#university">Университетам</a>
+      </nav>
+      <div class="userbar" id="userbar"></div>
+    </header>
+    <main id="app"></main>
+    <div id="toast" class="toast"></div>
+    <footer class="footer">
+      UniCareer · Платформа карьерного старта IT-выпускников · Демонстрационный
+      проект
+    </footer>
+    <script>
+      const seedJobs = [
+        {
+          id: 1,
+          title: "Python Developer (Middle)",
+          company: "Kaspi Tech",
+          city: "Астана",
+          salary: 400000,
+          type: "Гибрид",
+          grade: "Middle",
+          area: "Разработка ПО",
+          desc: "Разработка и поддержка внутренних сервисов на Python, интеграция API и работа с базами данных.",
+          req: "Python, Django или FastAPI, SQL, Git, понимание REST API",
+        },
+        {
+          id: 2,
+          title: "Frontend Developer (Junior)",
+          company: "Freedom Finance",
+          city: "Алматы",
+          salary: 350000,
+          type: "Удалённо",
+          grade: "Junior",
+          area: "Разработка ПО",
+          desc: "Разработка интерфейсов для финансовых веб-приложений.",
+          req: "JavaScript, React, HTML, CSS, Git",
+        },
+        {
+          id: 3,
+          title: "QA Engineer (Junior)",
+          company: "Beeline Kazakhstan",
+          city: "Астана",
+          salary: 300000,
+          type: "Офис",
+          grade: "Junior",
+          area: "Тестирование (QA)",
+          desc: "Тестирование новых функций веб-приложений и подготовка тест-кейсов.",
+          req: "Основы тестирования, Postman, SQL",
+        },
+        {
+          id: 4,
+          title: "Data Analyst (Middle)",
+          company: "Kolesa Group",
+          city: "Алматы",
+          salary: 450000,
+          type: "Гибрид",
+          grade: "Middle",
+          area: "Data Science",
+          desc: "Анализ продуктовых метрик, отчётность и визуализация данных.",
+          req: "SQL, Python, Pandas, Power BI",
+        },
+        {
+          id: 5,
+          title: "DevOps Engineer (Junior)",
+          company: "EPAM Kazakhstan",
+          city: "Астана",
+          salary: 220000,
+          type: "Удалённо",
+          grade: "Junior",
+          area: "DevOps",
+          desc: "Помощь в поддержке CI/CD и облачной инфраструктуры.",
+          req: "Linux, Docker, Git, основы CI/CD",
+        },
+      ];
+      seedJobs.forEach((j) => {
+        if (j.company === "Kaspi Tech") j.owner = 102;
+      });
+      const demoUsers = [
+        {
+          id: 101,
+          name: "Асылжан А.",
+          email: "graduate@unicareer.kz",
+          password: "12345678",
+          role: "graduate",
+        },
+        {
+          id: 102,
+          name: "Kaspi Tech",
+          email: "employer@unicareer.kz",
+          password: "12345678",
+          role: "employer",
+        },
+        {
+          id: 103,
+          name: "Astana International University",
+          email: "university@unicareer.kz",
+          password: "12345678",
+          role: "university",
+        },
+      ];
+      const defaults = {
+        users: demoUsers,
+        current: null,
+        jobs: seedJobs,
+        applications: [],
+        employment: [],
+        resume: {},
+        selectedJob: 1,
+        selectedCandidate: null,
+        saved: [],
+      };
+      let db;
+      try {
+        db = {
+          ...defaults,
+          ...JSON.parse(localStorage.getItem("unicareer_v3") || "{}"),
+        };
+      } catch (e) {
+        db = structuredClone(defaults);
+      }
+      demoUsers.forEach((u) => {
+        const i = db.users.findIndex(
+          (v) => String(v.email).toLowerCase() === u.email,
+        );
+        if (i < 0) db.users.push({ ...u });
+        else db.users[i] = { ...db.users[i], ...u };
+      });
+      db.jobs.forEach((j) => {
+        if (j.company === "Kaspi Tech" && !j.owner) j.owner = 102;
+      });
+      const normalizeJuniorJobs = () => {
+        db.jobs.forEach((j) => {
+          const title = String(j.title || "");
+          if (title.includes("QA Engineer")) {
+            j.grade = "Junior";
+          }
+          if (j.area === "DevOps" || title.includes("DevOps")) {
+            j.grade = "Junior";
+            j.area = "DevOps";
+            j.title = title
+              .replace(/\s*\(Intern\)/i, " (Junior)")
+              .replace(/^DevOps\s+Intern$/i, "DevOps Engineer (Junior)");
+          }
+        });
+      };
+      normalizeJuniorJobs();
+      let saveQueue = Promise.resolve();
+      let serverReady = false;
+      const persistLocal = () =>
+        localStorage.setItem("unicareer_v3", JSON.stringify(db));
+      const save = () => {
+        persistLocal();
+        const shared = {
+          ...db,
+          current: null,
+          selectedJob: undefined,
+          selectedCandidate: undefined,
+        };
+        const payload = JSON.stringify(shared);
+        saveQueue = saveQueue
+          .catch(() => {})
+          .then(() =>
+            fetch("/api/state", {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: payload,
+            }).then((r) => {
+              if (!r.ok) throw Error("HTTP " + r.status);
+            }),
+          );
+        saveQueue.catch(() =>
+          msg("Сохранено в браузере. Сервер недоступен — проверьте запуск."),
+        );
+        return saveQueue;
+      };
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const me = () => db.users.find((x) => x.id === db.current);
+      const role = () => me()?.role || "graduate";
+      const go = (x) => {
+        if (location.hash === "#" + x) {
+          render();
+        } else {
+          location.hash = x;
+        }
+      };
+      const msg = (s) => {
+        let e = document.getElementById("toast");
+        e.textContent = s;
+        e.style.display = "block";
+        setTimeout(() => (e.style.display = "none"), 3000);
+      };
+      const btn = (txt, fn, cls = "primary") =>
+        `<button class="btn ${cls}" onclick="${fn}">${txt}</button>`;
+      const badge = (s) =>
+        `<span class="pill ${s === "Принят" || s === "Трудоустроен" ? "green" : s === "На рассмотрении" ? "orange" : s === "Отклонён" ? "red" : "blue"}">${esc(s)}</span>`;
+      const ICONS = {
+        home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/>',
+        briefcase:
+          '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M2 13h20"/>',
+        file: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h4"/><path d="M9 12h6M9 16h6"/>',
+        clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+        user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+        users:
+          '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M18 15c2 .7 3 2.3 3 5"/>',
+        plus: '<path d="M12 5v14M5 12h14"/>',
+        chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+        building:
+          '<path d="M4 21V6l8-3 8 3v15"/><path d="M9 21v-5h6v5M8 9h1M15 9h1M8 13h1M15 13h1"/>',
+        bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+        heart:
+          '<path d="M12 20.5S3.5 15 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 5.8-8.5 11.3-8.5 11.3z"/>',
+        mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+        phone:
+          '<path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+        check: '<path d="m4 12 5 5L20 6"/>',
+        chevron: '<path d="m6 9 6 6 6-6"/>',
+        logout:
+          '<path d="M10 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5"/><path d="M14 8l4 4-4 4M18 12H9"/>',
+        layers: '<path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/>',
+        lock: '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+        play: '<circle cx="12" cy="12" r="9"/><path d="M10 8v8l6-4z"/>',
+        pin: '<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
+        search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+        edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/>',
+        trash:
+          '<path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/>',
+      };
+      const ico = (n) =>
+        `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ICONS.home}</svg>`;
+      const CLOGOS = {
+        "Kaspi Tech": ["K", "red"],
+        "Freedom Finance": ["F", "green"],
+        "Beeline Kazakhstan": ["B", "yellow"],
+        Beeline: ["B", "yellow"],
+        "Kolesa Group": ["K", "blue"],
+        "EPAM Kazakhstan": ["E", "purple"],
+        "Astana International University": ["AIU", "blue"],
+      };
+      const clogo = (n, cls = "") => {
+        let v = CLOGOS[n] || [
+          (n || "?").trim().charAt(0).toUpperCase(),
+          "blue",
+        ];
+        return `<span class="clogo ${v[1]} ${cls}">${esc(v[0])}</span>`;
+      };
+      const avatarLarge = () => `<span class="avatar">${ico("user")}</span>`;
+      function shell(title, items, body) {
+        let route = location.hash.slice(1).split("?")[0];
+        return `<div class="wrap layout"><aside class="sidebar">${items.map((x) => `<a class="${route === x[0] ? "active" : ""}" href="#${x[0]}">${x[2] ? ico(x[2]) : ""}${x[1]}</a>`).join("")}</aside><section class="main">${title ? `<div class="heading"><h1>${title}</h1></div>` : ""}${body}</section></div>`;
+      }
+      const gradNav = [
+        ["graduate", "Главная", "home"],
+        ["jobs", "Вакансии", "briefcase"],
+        ["resume", "Моё резюме", "file"],
+        ["applications", "Мои отклики", "clock"],
+        ["history", "История работы", "layers"],
+        ["profile", "Профиль", "user"],
+      ];
+      const empNav = [
+        ["employer", "Обзор", "home"],
+        ["employer-jobs", "Мои вакансии", "briefcase"],
+        ["create-job", "Создать вакансию", "plus"],
+        ["candidates", "Кандидаты", "users"],
+        ["companies", "Компания", "building"],
+      ];
+      const uniNav = [
+        ["university", "Обзор", "home"],
+        ["graduates", "Выпускники", "users"],
+        ["analytics", "Аналитика", "chart"],
+        ["history", "История работы", "clock"],
+      ];
+      function header() {
+        let nav = me()
+          ? role() === "graduate"
+            ? [
+                ["jobs", "Вакансии"],
+                ["companies", "Компании"],
+                ["applications", "Мои отклики"],
+                ["resume", "Резюме"],
+              ]
+            : role() === "employer"
+              ? [
+                  ["employer-jobs", "Вакансии"],
+                  ["candidates", "Кандидаты"],
+                  ["companies", "Компании"],
+                ]
+              : [
+                  ["graduates", "Выпускники"],
+                  ["analytics", "Аналитика"],
+                  ["history", "Отчёты"],
+                ]
+          : [
+              ["jobs", "Вакансии"],
+              ["companies", "Компании"],
+              ["graduates", "Выпускники"],
+              ["employer", "Работодателям"],
+              ["university", "Университетам"],
+            ];
+        document.querySelector(".top .nav").innerHTML = nav
+          .map((x) => `<a href="#${x[0]}">${x[1]}</a>`)
+          .join("");
+        document.getElementById("userbar").innerHTML = me()
+          ? `<div class="userchip" role="button" tabindex="0" title="Личный кабинет" onclick="go(me()?.role==='graduate'?'profile':me()?.role==='employer'?'employer':'university')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}"><span class="avatar">${ico("user")}</span>${esc(me().name)}${ico("chevron")}</div><button class="iconbtn" title="Выйти" onclick="logout()">${ico("logout")}</button>`
+          : `<button class="btn small ghost" onclick="go('login')">Войти</button><button class="btn small" onclick="go('register')">Регистрация</button>`;
+      }
+      function home() {
+        return `<div class="wrap"><section class="hero"><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 470 270"><defs><linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8fb7e5"/><stop offset="1" stop-color="#1e436f"/></linearGradient></defs><path d="M64 236L160 76L350 40L434 235Z" fill="#a9bfd6" opacity=".2"/><path d="M156 66L352 32L352 234L156 234Z" fill="url(#glass)" stroke="#d2e5f6" stroke-width="4"/><path d="M352 32L418 72L418 234L352 234Z" fill="#24476b" stroke="#8fb3d8" stroke-width="3"/><g stroke="#d6eaff" opacity=".65" stroke-width="3"><path d="M195 58V234M234 52V234M273 45V234M312 38V234M156 110H352M156 162H352M156 207H352M352 88H418M352 145H418M352 200H418"/></g><path d="M95 240L434 240" stroke="#f1f7ff" stroke-width="8"/><circle cx="96" cy="215" r="25" fill="#3c865d"/><circle cx="109" cy="190" r="24" fill="#4b9c6a"/><path d="M101 210V252" stroke="#bfd9c2" stroke-width="6"/></svg></div><h1>Карьерные возможности для IT-выпускников</h1><p>Найдите первую работу, развивайте карьеру и оставайтесь на связи со своим университетом.</p>${btn("Найти работу", "go('jobs')", "")}${btn("Разместить вакансию", "go('employer')", "ghost")}<div class="heroStats"><div class="hs">${ico("briefcase")}<span><b>${db.jobs.length}+</b><small>IT-вакансий</small></span></div><div class="hs">${ico("users")}<span><b>${db.users.filter((x) => x.role === "graduate").length}+</b><small>выпускников</small></span></div><div class="hs">${ico("building")}<span><b>${new Set(db.jobs.map((x) => x.company)).size}+</b><small>компаний</small></span></div></div></section><div class="heading" style="margin-top:32px"><h1>Начните карьеру с UniCareer</h1></div><div class="grid">${[
+          [
+            "Выпускникам",
+            "Создайте резюме и найдите стажировку или Junior-позицию.",
+            "jobs",
+          ],
+          [
+            "Работодателям",
+            "Публикуйте вакансии и находите начинающих IT-специалистов.",
+            "employer",
+          ],
+          [
+            "Университетам",
+            "Отслеживайте карьерный путь выпускников и анализируйте результаты.",
+            "university",
+          ],
+        ]
+          .map(
+            (a) =>
+              `<div class="panel"><h2>${a[0]}</h2><p class="muted">${a[1]}</p>${btn("Перейти", `go('${a[2]}')`)}</div>`,
+          )
+          .join("")}</div></div>`;
+      }
+      function auth(reg) {
+        return `<div class="auth"><div class="auth-brand"><svg viewBox="0 0 32 32"><path d="M16 2.5 28 9.5v13L16 29.5 4 22.5v-13z" fill="#5d7ee8"/><path d="M16 2.5 28 9.5 16 16.5 4 9.5z" fill="#dbe6ff"/><path d="M16 16.5v13L4 22.5v-13z" fill="#8fa9ef"/><path d="M16 16.5v13l12-7v-13z" fill="#4c69d8"/></svg>UniCareer</div><div class="auth-visual"><svg viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="authGlow" cx="50%" cy="58%" r="52%"><stop offset="0" stop-color="#6a58e8" stop-opacity=".42"/><stop offset=".6" stop-color="#5b49da" stop-opacity=".12"/><stop offset="1" stop-color="#5b49da" stop-opacity="0"/></radialGradient><linearGradient id="authScreen" x1="0" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#e2eaff"/><stop offset=".4" stop-color="#bfd0fa"/><stop offset=".75" stop-color="#a0b6f2"/><stop offset="1" stop-color="#8199e4"/></linearGradient><linearGradient id="authFrame" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4c65b8"/><stop offset="1" stop-color="#2b3f88"/></linearGradient><linearGradient id="authDeck" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#dbe5ff"/><stop offset=".5" stop-color="#b9c9fa"/><stop offset="1" stop-color="#8ea6ee"/></linearGradient><linearGradient id="authEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f98e3"/><stop offset="1" stop-color="#5068bd"/></linearGradient><radialGradient id="authShine" cx="30%" cy="6%" r="78%"><stop offset="0" stop-color="#ffffff" stop-opacity=".26"/><stop offset=".62" stop-color="#ffffff" stop-opacity=".05"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient><linearGradient id="authCubeTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2e9ff"/><stop offset="1" stop-color="#aebff6"/></linearGradient><linearGradient id="authCubeL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4b60b5"/><stop offset="1" stop-color="#2f418c"/></linearGradient><linearGradient id="authCubeR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7288dc"/><stop offset="1" stop-color="#4356a8"/></linearGradient><filter id="authBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter><g id="authCube"><path d="M0 -18 L16 -9 L0 0 L-16 -9 Z" fill="url(#authCubeTop)"/><path d="M-16 -9 L0 0 L0 20 L-16 11 Z" fill="url(#authCubeL)"/><path d="M16 -9 L0 0 L0 20 L16 11 Z" fill="url(#authCubeR)"/><path d="M0 -18 L16 -9 L0 0 L-16 -9 Z" fill="none" stroke="#eef3ff" stroke-opacity=".55" stroke-width=".8"/><path d="M0 0 L0 19.5" stroke="#dbe5ff" stroke-opacity=".35" stroke-width=".8"/></g></defs><ellipse cx="182" cy="176" rx="148" ry="124" fill="url(#authGlow)"/><ellipse cx="182" cy="266" rx="122" ry="15" fill="#040a16" opacity=".6" filter="url(#authBlur)"/><g><path d="M94 88 L258 70 Q266 69.2 266 76 L266 170 Q266 176.4 259.6 177.2 L94 194 Q86 194.8 86 188 L86 95 Q86 88.8 94 88 Z" fill="url(#authFrame)"/><path d="M100 97 L252 80.5 Q257 80 257 84.5 L257 163 Q257 167.5 252.5 168 L100 184 Q95 184.6 95 180 L95 102 Q95 97.6 100 97 Z" fill="url(#authScreen)"/><path d="M100 97 L252 80.5 L252.5 168 L100 184 Z" fill="url(#authShine)"/><path d="M118 180 L240 166" stroke="#ffffff" stroke-opacity=".28" stroke-width="1.4"/><path d="M88 190 L264 172 L306 198 Q309 200 305 202 L76 224 Q66 225 62 218 L88 190 Z" fill="url(#authDeck)"/><path d="M62 218 Q66 225 76 224 L305 202 Q309 200 306 198 L306 205 Q309 207 305 209 L76 231 Q66 232 62 225 Z" fill="url(#authEdge)"/><path d="M105 194 L250 178 L260 184 L113 200 Z" fill="#6b82cf" opacity=".22"/><path d="M150 216 Q181 219 212 215" stroke="#5b72c0" stroke-opacity=".45" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M300 201 L78 221" stroke="#e8eeff" stroke-opacity=".4" stroke-width="1.3"/><path d="M86 190 L266 172" stroke="#e8eeff" stroke-opacity=".35" stroke-width="1.5"/></g><g transform="translate(48,150) scale(1.15)"><use href="#authCube"/></g><g transform="translate(27,199) scale(.6)"><use href="#authCube"/></g><g transform="translate(298,93) scale(.78)"><use href="#authCube"/></g><circle cx="90" cy="58" r="2" fill="#a9bcf7" opacity=".55"/><circle cx="321" cy="64" r="1.5" fill="#c9d6ff" opacity=".5"/><circle cx="28" cy="120" r="1.5" fill="#91a8ee" opacity=".45"/><circle cx="333" cy="169" r="2" fill="#8fa6ec" opacity=".35"/></svg></div><div class="panel"><h1>${reg ? "Регистрация" : "Вход в аккаунт"}</h1><p class="muted">${reg ? "Создайте аккаунт, чтобы начать" : "Войдите в личный кабинет"}</p><div class="tabs" id="roles">${[
+          ["graduate", "Выпускник"],
+          ["employer", "Работодатель"],
+          ["university", "Университет"],
+        ]
+          .map(
+            (x, i) =>
+              `<button class="${i === 0 ? "active" : ""}" onclick="setRole(this,'${x[0]}')">${x[1]}</button>`,
+          )
+          .join(
+            "",
+          )}</div><form onsubmit="authSubmit(event,${reg})"><input type="hidden" name="role" id="authRole" value="graduate">${reg ? `<div class="afield">${ico("user")}<input name="name" required placeholder="ФИО / Название организации"></div>` : ""}<div class="afield">${ico("mail")}<input name="email" type="email" required placeholder="Электронная почта"></div><div class="afield">${ico("lock")}<input name="password" type="password" minlength="8" required placeholder="Пароль (не менее 8 символов)"></div>${reg ? `<div class="afield">${ico("lock")}<input name="confirm" type="password" minlength="8" required placeholder="Подтвердите пароль"></div><label class="agree"><input type="checkbox" required> Принимаю условия <a href="#home">Пользовательского соглашения</a></label>` : ""}<button class="btn primary wide">${reg ? "Зарегистрироваться" : "Войти"}</button></form>${!reg ? `<div class="demoBox"><b>Демонстрационные аккаунты</b><p>graduate@unicareer.kz · employer@unicareer.kz · university@unicareer.kz<br>Пароль: <strong>12345678</strong></p><div class="demoButtons"><button class="btn small" onclick="demoLogin('graduate')">Выпускник</button><button class="btn small" onclick="demoLogin('employer')">Работодатель</button><button class="btn small" onclick="demoLogin('university')">Университет</button></div></div>` : ""}<p style="text-align:center;font-size:12px">${reg ? 'Уже есть аккаунт? <a href="#login" style="color:#2856c5">Войти</a>' : 'Нет аккаунта? <a href="#register" style="color:#2856c5">Зарегистрироваться</a>'}</p></div></div>`;
+      }
+      function setRole(el, r) {
+        document
+          .querySelectorAll("#roles button")
+          .forEach((x) => x.classList.remove("active"));
+        el.classList.add("active");
+        document.getElementById("authRole").value = r;
+      }
+      function authSubmit(e, reg) {
+        e.preventDefault();
+        let f = Object.fromEntries(new FormData(e.target));
+        if (reg) {
+          if (f.password.length < 8)
+            return msg("Пароль должен содержать минимум 8 символов");
+          if (f.password !== f.confirm) return msg("Пароли не совпадают");
+          if (
+            db.users.some(
+              (u) => u.email.toLowerCase() === f.email.toLowerCase(),
+            )
+          )
+            return msg("Такая почта уже зарегистрирована");
+          let u = {
+            id: Date.now(),
+            name: f.name,
+            email: f.email,
+            password: f.password,
+            role: f.role,
+          };
+          db.users.push(u);
+          db.current = u.id;
+          save();
+          go(
+            f.role === "graduate"
+              ? "graduate"
+              : f.role === "employer"
+                ? "employer"
+                : "university",
+          );
+          msg("Аккаунт создан");
+        } else {
+          let u = db.users.find(
+            (x) =>
+              String(x.email).trim().toLowerCase() ===
+                String(f.email).trim().toLowerCase() &&
+              x.password === f.password,
+          );
+          if (!u) return msg("Неверная почта или пароль");
+          if (u.role !== f.role) {
+            msg(
+              "Вход выполнен. Роль определена по аккаунту: " +
+                (u.role === "graduate"
+                  ? "выпускник"
+                  : u.role === "employer"
+                    ? "работодатель"
+                    : "университет"),
+            );
+          }
+          db.current = u.id;
+          persistLocal();
+          go(
+            u.role === "graduate"
+              ? "graduate"
+              : u.role === "employer"
+                ? "employer"
+                : "university",
+          );
+        }
+      }
+      function demoLogin(r) {
+        let u = demoUsers.find((x) => x.role === r);
+        db.current = u.id;
+        persistLocal();
+        go(r);
+        msg(
+          "Вы вошли как " +
+            (r === "graduate"
+              ? "выпускник"
+              : r === "employer"
+                ? "работодатель"
+                : "университет"),
+        );
+      }
+      function logout() {
+        db.current = null;
+        persistLocal();
+        go("home");
+      }
+      function graduate() {
+        let r = db.resume[db.current] || {};
+        let apps = db.applications.filter((x) => x.user === db.current);
+        let pct = Math.min(
+          100,
+          Math.round((Object.values(r).filter(Boolean).length / 7) * 100),
+        );
+        return shell(
+          "Здравствуйте, " + esc(me()?.name || "выпускник") + "!",
+          gradNav,
+          `<p class="subtitle">Подходящие вакансии для вас</p><div class="grid" style="margin-bottom:16px"><div class="stat"><strong>${db.jobs.length}</strong><span>Доступных вакансий</span></div><div class="stat"><strong>${apps.length}</strong><span>Мои отклики</span></div><div class="stat"><strong>${Object.values(r).filter(Boolean).length}/7</strong><span>Разделов резюме</span></div></div><div class="rec-grid">${db.jobs
+            .slice(0, 3)
+            .map(
+              (j) =>
+                `<div class="rec-card" onclick="openJob(${j.id})"><b>${esc(j.title)}</b><span>${esc(j.company)}</span><strong>от ${Number(j.salary).toLocaleString("ru-RU")} ₸</strong></div>`,
+            )
+            .join(
+              "",
+            )}</div><div class="progress-card2"><span class="pcircle">${ico("play")}</span><div class="pinfo"><b>Резюме заполнено на ${pct}%</b><div class="progress-track"><i style="width:${pct}%"></i></div></div><a class="plink" href="#resume">Заполнить</a></div><div class="panel"><h3>Ваше резюме</h3><p class="muted">${r.skills ? "Навыки: " + esc(r.skills) : "Заполните резюме, чтобы отправлять отклики работодателям."}</p><a class="plink" href="#resume">Открыть резюме</a></div>`,
+        );
+      }
+      function jobRow(j, canDelete) {
+        return `<div class="job"><div class="jobtop"><div class="jtitle">${clogo(j.company)}<div><h3>${esc(j.title)}</h3><div class="muted">${esc(j.company)} · ${esc(j.city)}</div></div></div><div class="jright"><div class="salary">от ${Number(j.salary).toLocaleString("ru-RU")} ₸</div><button type="button" class="heart ${(db.saved || []).includes(j.id) ? "active" : ""}" title="${(db.saved || []).includes(j.id) ? "Удалить из избранного" : "Добавить в избранное"}" onclick="toggleSaved(${j.id})">${ico("heart")}</button></div></div><div class="tags">${[j.area, j.grade, j.type].map((x) => `<span class="pill">${esc(x)}</span>`).join("")}</div><div style="margin-top:10px">${btn("Подробнее", `openJob(${j.id})`, "small")}${canDelete ? ` ${btn("Удалить", `deleteJob(${j.id})`, "small danger")}` : ""}</div></div>`;
+      }
+      function openJob(id) {
+        db.selectedJob = id;
+        save();
+        go("job");
+      }
+      function toggleSaved(id) {
+        db.saved = db.saved || [];
+        const i = db.saved.indexOf(id);
+        if (i >= 0) {
+          db.saved.splice(i, 1);
+          msg("Удалено из избранного");
+        } else {
+          db.saved.push(id);
+          msg("Добавлено в избранное");
+        }
+        save();
+        render();
+      }
+      function deleteJob(id) {
+        if (!me() || role() !== "employer")
+          return msg("Недостаточно прав для удаления вакансии");
+        let j = db.jobs.find((x) => x.id === id);
+        if (!j || j.owner !== db.current)
+          return msg("Недостаточно прав для удаления вакансии");
+        if (
+          !confirm(
+            "Удалить вакансию «" +
+              j.title +
+              "»? Отклики на неё тоже будут удалены.",
+          )
+        )
+          return;
+        db.jobs = db.jobs.filter((x) => x.id !== id);
+        db.applications = db.applications.filter((a) => a.job !== id);
+        if (db.selectedJob === id) db.selectedJob = null;
+        save();
+        render();
+        msg("Вакансия удалена");
+      }
+      function jobs() {
+        let area = window.jobArea || "",
+          term = window.jobTerm || "",
+          city = window.jobCity || "",
+          exp = window.jobExp || [];
+        let list = db.jobs.filter(
+          (j) =>
+            (j.title + " " + j.company + " " + j.req)
+              .toLowerCase()
+              .includes(term.toLowerCase()) &&
+            (!area || j.area === area) &&
+            (!city || j.city === city) &&
+            (!exp.length ||
+              exp.some((v) =>
+                v === "Без опыта"
+                  ? j.grade === "Junior"
+                  : v === "От 1 года"
+                    ? j.grade !== "Junior"
+                    : false,
+              )),
+        );
+        let areas = [
+          "Разработка ПО",
+          "Data Science",
+          "DevOps",
+          "Тестирование (QA)",
+          "Системное администрирование",
+        ];
+        return shell(
+          "Вакансии",
+          me() && role() === "graduate"
+            ? gradNav
+            : [
+                ["home", "Главная", "home"],
+                ["jobs", "Вакансии", "briefcase"],
+                ["login", "Войти", "user"],
+                ["register", "Регистрация", "plus"],
+              ],
+          `<div class="panel"><div class="searchrow"><div class="input-icon">${ico("search")}<input id="term" placeholder="Должность, компания или ключевое слово" value="${esc(term)}"></div><div class="input-icon">${ico("pin")}<select id="city"><option value="">Все города</option>${["Астана", "Алматы"].map((x) => `<option ${city === x ? "selected" : ""}>${x}</option>`).join("")}</select></div><button class="btn primary" onclick="searchJobs()">Найти</button></div><div class="filterlayout"><div class="panel filterbox"><h3>Фильтры</h3><h4>Направление</h4>${areas.map((a) => `<label><input type="checkbox" name="areaChk" value="${a}" ${area === a ? "checked" : ""} onchange="searchJobs()">${a}</label>`).join("")}<h4>Опыт работы</h4>${["Без опыта", "От 1 года", "От 3 лет"].map((a) => `<label><input type="checkbox" name="expChk" value="${a}" ${exp.includes(a) ? "checked" : ""} onchange="searchJobs()">${a}</label>`).join("")}</div><div><p class="muted">Найдено: ${list.length} вакансий</p>${list.length ? list.map((j) => jobRow(j)).join("") : '<div class="empty">Вакансий по заданным фильтрам не найдено</div>'}</div></div></div>`,
+        );
+      }
+      function searchJobs() {
+        window.jobTerm = document.getElementById("term")?.value || "";
+        window.jobCity = document.getElementById("city")?.value || "";
+        window.jobArea =
+          document.querySelector("input[name=areaChk]:checked")?.value || "";
+        window.jobExp = [
+          ...document.querySelectorAll("input[name=expChk]:checked"),
+        ].map((x) => x.value);
+        render();
+      }
+      function job() {
+        let j = db.jobs.find((x) => x.id === db.selectedJob) || db.jobs[0];
+        return shell(
+          "Карточка вакансии",
+          me() && role() === "graduate"
+            ? gradNav
+            : [
+                ["home", "Главная", "home"],
+                ["jobs", "Вакансии", "briefcase"],
+                ["login", "Войти", "user"],
+              ],
+          `<div class="panel"><button class="btn small" onclick="go('jobs')">← К списку вакансий</button><div class="heading" style="margin-top:22px"><div class="jtitle">${clogo(j.company)}<div><h1>${esc(j.title)}</h1><p class="muted">${esc(j.company)} · ${esc(j.city)}</p></div></div><strong style="font-size:22px">от ${Number(j.salary).toLocaleString("ru-RU")} ₸</strong></div><div>${[j.grade, j.type, j.area].map((x) => `<span class="pill">${esc(x)}</span>`).join("")}</div><hr style="border:0;border-top:1px solid var(--line);margin:25px 0"><h2>Описание вакансии</h2><p>${esc(j.desc)}</p><h2>Требования</h2><p>${esc(j.req)}</p><h2>Условия</h2><p>Формат: ${esc(j.type)} · Город: ${esc(j.city)} · Уровень: ${esc(j.grade)}</p>${btn("Откликнуться", `apply(${j.id})`)} ${btn("Назад к поиску", "go('jobs')", "")}</div>`,
+        );
+      }
+      function apply(id) {
+        if (!me()) return go("register");
+        if (role() !== "graduate") return msg("Отклики доступны выпускникам");
+        let r = db.resume[db.current];
+        if (!r?.name || !r?.skills) {
+          msg("Сначала заполните имя и навыки в резюме");
+          return go("resume");
+        }
+        if (db.applications.some((x) => x.user === db.current && x.job === id))
+          return msg("Вы уже откликнулись на эту вакансию");
+        db.applications.push({
+          id: Date.now(),
+          user: db.current,
+          job: id,
+          status: "На рассмотрении",
+          date: new Date().toLocaleDateString("ru-RU"),
+        });
+        save();
+        go("applications");
+        msg("Отклик отправлен");
+      }
+      window.resumeEdit = false;
+      function toggleResumeEdit() {
+        window.resumeEdit = !window.resumeEdit;
+        render();
+      }
+      function resume() {
+        let r = db.resume[db.current] || {};
+        let pct = Math.min(
+          100,
+          Math.round((Object.values(r).filter(Boolean).length / 7) * 100),
+        );
+        let checks = [
+          ["name", "Основная информация"],
+          ["experience", "Опыт работы"],
+          ["university", "Образование"],
+          ["skills", "Навыки"],
+          ["about", "Проекты"],
+        ];
+        let view = `<div class="grid two"><div class="panel"><div class="person">${avatarLarge()}<div><h3>${esc(r.name || me()?.name || "")}</h3><div class="p-pos">${esc(r.position || "IT-специалист")}</div><p>${ico("phone")}${esc(r.phone || "Не указан")}</p><p>${ico("mail")}${esc(r.email || me()?.email || "")}</p></div></div></div><div class="panel"><h3>Заполнено на ${pct}%</h3><div class="progress-track green"><i style="width:${pct}%"></i></div><ul class="checklist" style="margin-top:14px">${checks.map((a) => `<li class="${r[a[0]] ? "done" : ""}">${ico("check")}${a[1]}</li>`).join("")}</ul></div></div><div class="panel"><h3>О себе</h3><p class="muted">${esc(r.about || "Информация не заполнена.")}</p></div>`;
+        view =
+          `<div class="heading"><h1>Моё резюме</h1>${btn("✎ Редактировать", "toggleResumeEdit()", "")}</div>` +
+          view;
+        return shell(
+          "",
+          gradNav,
+          view +
+            (window.resumeEdit
+              ? `<div class="panel"><h2>Профессиональное резюме</h2><form onsubmit="saveResume(event)"><div class="formgrid">${[
+                  ["name", "ФИО", "text"],
+                  ["position", "Желаемая должность", "text"],
+                  ["email", "Электронная почта", "email"],
+                  ["phone", "Телефон", "text"],
+                  ["university", "Университет", "text"],
+                  ["specialty", "Специальность", "text"],
+                ]
+                  .map(
+                    (a) =>
+                      `<div class="field"><label>${a[1]}</label><input name="${a[0]}" type="${a[2]}" value="${esc(r[a[0]] || (a[0] === "name" ? me()?.name : "") || "")}" ${a[0] === "name" ? "required" : ""}></div>`,
+                  )
+                  .join(
+                    "",
+                  )}</div><div class="field"><label>Навыки</label><textarea name="skills" required>${esc(r.skills)}</textarea></div><div class="field"><label>Опыт работы и проекты</label><textarea name="experience">${esc(r.experience)}</textarea></div><div class="field"><label>О себе</label><textarea name="about">${esc(r.about)}</textarea></div><button class="btn primary">Сохранить резюме</button></form></div>`
+              : ""),
+        );
+      }
+      function saveResume(e) {
+        e.preventDefault();
+        if (!me() || role() !== "graduate") return msg("Войдите как выпускник");
+        const data = Object.fromEntries(new FormData(e.currentTarget));
+        db.resume[db.current] = {
+          ...data,
+          updatedAt: new Date().toISOString(),
+        };
+        const button = e.currentTarget.querySelector(
+          "button[type=submit],button.btn.primary",
+        );
+        if (button) {
+          button.disabled = true;
+          button.textContent = "Сохранение…";
+        }
+        save()
+          .then(() => msg("Резюме сохранено в базе данных"))
+          .catch(() =>
+            msg(
+              "Резюме сохранено в браузере; синхронизация с сервером не удалась",
+            ),
+          )
+          .finally(() => {
+            window.resumeEdit = false;
+            render();
+          });
+      }
+      function appsTab(f) {
+        window.appTab = f;
+        render();
+      }
+      function applications() {
+        let all = db.applications.filter((x) => x.user === db.current);
+        let f = window.appTab || "Все";
+        let hit = (x) =>
+          f === "Все"
+            ? true
+            : f === "На рассмотрении"
+              ? x.status === "На рассмотрении"
+              : f === "Принятые"
+                ? ["Принят", "Приглашён", "Трудоустроен"].includes(x.status)
+                : x.status === "Отклонён";
+        let a = all.filter(hit);
+        let cnt = (k) =>
+          all.filter((x) =>
+            k === "Все"
+              ? true
+              : k === "На рассмотрении"
+                ? x.status === "На рассмотрении"
+                : k === "Принятые"
+                  ? ["Принят", "Приглашён", "Трудоустроен"].includes(x.status)
+                  : x.status === "Отклонён",
+          ).length;
+        return shell(
+          "Мои отклики",
+          gradNav,
+          `<div class="tabs">${["Все", "На рассмотрении", "Принятые", "Отклонённые"].map((k) => `<button class="${f === k ? "active" : ""}" onclick="appsTab('${k}')">${k} (${cnt(k)})</button>`).join("")}</div><div class="list-card">${
+            a.length
+              ? a
+                  .map((x) => {
+                    let j = db.jobs.find((z) => z.id === x.job) || {};
+                    return `<div class="list-row" style="cursor:pointer" onclick="db.selectedJob=${j.id};save();go('job')">${clogo(j.company)}<div class="lrmain"><b>${esc(j.title)}</b><small>${esc(j.company)}</small></div><span class="date">${x.date}</span>${badge(x.status)}<span class="chev">›</span></div>`;
+                  })
+                  .join("")
+              : '<div class="empty">Откликов в этой вкладке пока нет</div>'
+          }</div><div style="margin-top:16px">${btn("Найти вакансии", "go('jobs')")}</div>`,
+        );
+      }
+      function history() {
+        let entries = db.employment.filter((x) =>
+          role() === "graduate" ? x.user === db.current : true,
+        );
+        return shell(
+          "История трудоустройства",
+          role() === "university" ? uniNav : gradNav,
+          `${
+            role() === "graduate"
+              ? `<div class="panel"><h2>Добавить место работы</h2><form onsubmit="addWork(event)"><div class="formgrid">${[
+                  ["company", "Компания"],
+                  ["position", "Должность"],
+                  ["start", "Дата начала"],
+                  ["end", "Дата окончания (или «по настоящее время»)"],
+                ]
+                  .map(
+                    (a) =>
+                      `<div class="field"><label>${a[1]}</label><input name="${a[0]}" required></div>`,
+                  )
+                  .join(
+                    "",
+                  )}</div><button class="btn primary">Добавить запись</button></form></div>`
+              : ""
+          }<div class="panel"><h2>Карьерная история</h2>${entries.length ? `<div class="timeline">${entries.map((x) => `<div><b>${esc(x.position)} — ${esc(x.company)}</b><p class="muted">${esc(x.start)} — ${esc(x.end)}${role() === "university" ? " · " + esc(db.users.find((u) => u.id === x.user)?.name) : ""}</p></div>`).join("")}</div>` : '<div class="empty">История трудоустройства пока не заполнена</div>'}</div>`,
+        );
+      }
+      function addWork(e) {
+        e.preventDefault();
+        db.employment.push({
+          ...Object.fromEntries(new FormData(e.target)),
+          user: db.current,
+          id: Date.now(),
+        });
+        save();
+        render();
+        msg("Место работы добавлено");
+      }
+      function profile() {
+        return shell(
+          "Профиль",
+          gradNav,
+          `<div class="panel"><h2>${esc(me()?.name)}</h2><p>Почта: ${esc(me()?.email)}</p><p>Роль: Выпускник</p>${btn("Редактировать резюме", "go('resume')")}</div>`,
+        );
+      }
+      function employer() {
+        let mine = db.jobs.filter((j) => j.owner === db.current);
+        let ids = mine.map((j) => j.id);
+        let apps = db.applications.filter((a) => ids.includes(a.job));
+        return shell(
+          "",
+          empNav,
+          `<div class="row" style="gap:14px;margin-bottom:20px">${clogo(me()?.name, "lg")}<div><h1 style="margin:0;font-size:25px">${esc(me()?.name)}</h1><div class="muted" style="font-size:12px">IT · 250–1 000 сотрудников</div></div></div><div class="grid four"><div class="stat"><strong>${mine.length}</strong><span>Активных вакансий</span></div><div class="stat"><strong>${apps.length}</strong><span>Отклика</span></div><div class="stat"><strong>${apps.filter((x) => x.status === "Приглашён").length}</strong><span>Приглашений</span></div><div class="stat"><strong>${apps.filter((x) => x.status === "Принят" || x.status === "Трудоустроен").length}</strong><span>Приняты</span></div></div><div class="panel" style="margin-top:16px"><div class="row space"><h2>Управление подбором</h2>${btn("+ Создать вакансию", "go('create-job')")}</div><p class="muted">Публикуйте вакансии и рассматривайте отклики выпускников.</p>${btn("Открыть кандидатов", "go('candidates')", "")}</div><h3 style="margin:22px 0 12px">Последние отклики</h3><div class="list-card">${
+            apps.length
+              ? apps
+                  .slice(0, 4)
+                  .map((x) => {
+                    let u = db.users.find((z) => z.id === x.user) || {},
+                      j = db.jobs.find((z) => z.id === x.job) || {};
+                    return `<div class="list-row"><span class="avatar">${ico("user")}</span><div class="lrmain"><b>${esc(u.name || "Кандидат")}</b><small>${esc(j.title || "")}</small></div>${badge(x.status)}<span class="date">${x.date}</span></div>`;
+                  })
+                  .join("")
+              : '<div class="empty">Откликов пока нет</div>'
+          }</div>`,
+        );
+      }
+      function employerJobs() {
+        let mine = db.jobs.filter((x) => x.owner === db.current);
+        return shell(
+          "Мои вакансии",
+          empNav,
+          `<div class="panel"><div class="row space"><h2>Опубликованные вакансии</h2>${btn("+ Создать вакансию", "go('create-job')")}</div>${mine.length ? mine.map((j) => jobRow(j, true)).join("") : '<div class="empty">Вы пока не опубликовали вакансии</div>'}</div>`,
+        );
+      }
+      function createJob() {
+        return shell(
+          "Создание вакансии",
+          empNav,
+          `<div class="panel"><form onsubmit="publishJob(event)"><div class="formgrid"><div class="field"><label>Название должности</label><input name="title" required placeholder="Backend Developer (Junior)"></div><div class="field"><label>Компания</label><input name="company" required value="${esc(me()?.name)}"></div><div class="field"><label>Город</label><select name="city"><option>Астана</option><option>Алматы</option></select></div><div class="field"><label>Зарплата от (₸)</label><input name="salary" type="number" min="0" required value="300000"></div><div class="field"><label>Направление</label><select name="area"><option>Разработка ПО</option><option>Data Science</option><option>DevOps</option><option>Тестирование (QA)</option></select></div><div class="field"><label>Уровень</label><select name="grade"><option>Junior</option><option>Middle</option><option>Senior</option></select></div><div class="field"><label>Формат работы</label><select name="type"><option>Офис</option><option>Гибрид</option><option>Удалённо</option></select></div></div><div class="field"><label>Описание</label><textarea name="desc" required></textarea></div><div class="field"><label>Требования</label><textarea name="req" required></textarea></div><button class="btn primary">Опубликовать вакансию</button></form></div>`,
+        );
+      }
+      function publishJob(e) {
+        e.preventDefault();
+        db.jobs.unshift({
+          ...Object.fromEntries(new FormData(e.target)),
+          id: Date.now(),
+          owner: db.current,
+        });
+        save();
+        go("employer-jobs");
+        msg("Вакансия опубликована");
+      }
+      function setStatus(id, status) {
+        if (!me() || role() !== "employer") return msg("Недостаточно прав");
+        let a = db.applications.find((x) => x.id === id);
+        if (!a) return msg("Отклик не найден");
+        let j = db.jobs.find((x) => x.id === a.job);
+        if (!j || j.owner !== db.current)
+          return msg("Недостаточно прав для этого отклика");
+        a.status = status;
+        save();
+        render();
+        msg("Статус обновлён: " + status);
+      }
+      function candidates() {
+        let mine = db.jobs
+          .filter((j) => j.owner === db.current)
+          .map((x) => x.id);
+        let apps = db.applications.filter((a) => mine.includes(a.job));
+        let j0 = db.jobs.find((j) => j.id === mine[0]) || {};
+        return shell(
+          "",
+          empNav,
+          `<a class="backlink" href="#employer-jobs">← К списку вакансий</a><div class="heading"><h1>Отклики: ${esc(j0.title || "вакансии")}</h1><span class="muted" style="font-size:12px">Всего: ${apps.length}</span></div><div class="list-card">${
+            apps.length
+              ? apps
+                  .map((a) => {
+                    let u = db.users.find((x) => x.id === a.user) || {};
+                    return `<div class="list-row" style="cursor:pointer" onclick="db.selectedCandidate=${a.id};save();go('candidate')"><span class="chk"></span><span class="avatar">${ico("user")}</span><div class="lrmain"><b>${esc(u.name || "Кандидат")}</b><small>Выпускник AIU, 2025</small></div>${badge(a.status)}<span class="three" title="Пригласить" onclick="event.stopPropagation();setStatus(${a.id},'Приглашён')">✓</span><span class="three" title="Отклонить" onclick="event.stopPropagation();setStatus(${a.id},'Отклонён')">✕</span></div>`;
+                  })
+                  .join("")
+              : '<div class="empty">Откликов пока нет. Опубликуйте вакансию и отправьте отклик из аккаунта выпускника.</div>'
+          }</div>`,
+        );
+      }
+      function candidate() {
+        let a = db.applications.find((x) => x.id === db.selectedCandidate);
+        if (!a)
+          return shell(
+            "Профиль кандидата",
+            empNav,
+            '<a class="backlink" href="#candidates">← К списку кандидатов</a><div class="panel">Выберите кандидата в списке откликов.</div>',
+          );
+        let u = db.users.find((x) => x.id === a.user),
+          r = db.resume[a.user] || {};
+        return shell(
+          "Профиль кандидата",
+          empNav,
+          `<a class="backlink" href="#candidates">← К списку кандидатов</a><div class="panel"><h2>${esc(r.name || u?.name)}</h2><p class="muted">${esc(r.position || "IT-специалист")}</p><h3>Контакты</h3><p>${esc(r.email || u?.email)} · ${esc(r.phone || "")}</p><h3>Образование</h3><p>${esc(r.university || "Не указано")} · ${esc(r.specialty || "")}</p><h3>Навыки</h3><p>${esc(r.skills || "Не указаны")}</p><h3>Опыт и проекты</h3><p>${esc(r.experience || "Не указаны")}</p><h3>О себе</h3><p>${esc(r.about || "Не указано")}</p>${btn("Пригласить", `setStatus(${a.id},'Приглашён')`)} ${btn("Отклонить", `setStatus(${a.id},'Отклонён')`, "")}</div>`,
+        );
+      }
+      function companies() {
+        let nav = me()
+          ? role() === "graduate"
+            ? gradNav
+            : role() === "employer"
+              ? empNav
+              : uniNav
+          : [
+              ["home", "Главная", "home"],
+              ["jobs", "Вакансии", "briefcase"],
+              ["login", "Войти", "user"],
+              ["register", "Регистрация", "plus"],
+            ];
+        return shell(
+          "Компании",
+          nav,
+          `<div class="panel"><h2>IT-компании на платформе</h2><div class="grid">${[...new Set(db.jobs.map((j) => j.company))].map((x) => `<div class="stat"><h3>${esc(x)}</h3><p class="muted">Вакансий: ${db.jobs.filter((j) => j.company === x).length}</p></div>`).join("")}</div></div>`,
+        );
+      }
+      function university() {
+        let grads = db.users.filter((u) => u.role === "graduate");
+        let employed = new Set(db.employment.map((e) => e.user)).size;
+        let rate = grads.length
+          ? Math.round((employed / grads.length) * 100)
+          : 0;
+        return shell(
+          "",
+          uniNav,
+          `<div class="row" style="gap:14px;margin-bottom:20px"><div style="font-size:26px;font-weight:900;color:#1e4fa3;letter-spacing:-2px;line-height:1">AIU</div><div><h1 style="margin:0;font-size:25px">AIU</h1><div class="muted" style="font-size:12px">Astana International University</div></div></div><div class="grid"><div class="stat"><strong>${grads.length}</strong><span>Выпускников</span></div><div class="stat"><strong class="green">${employed}</strong><span>Трудоустроено</span></div><div class="stat"><strong class="navy">${rate}%</strong><span>Уровень трудоустройства</span></div></div><div class="panel" style="margin-top:16px"><h2>Мониторинг трудоустройства</h2><p class="muted">Просматривайте сведения, которые выпускники внесли в демонстрационную систему.</p>${btn("Список выпускников", "go('graduates')")} ${btn("Аналитика", "go('analytics')", "")}</div><h3 style="margin:22px 0 12px">Последние события</h3><div class="list-card">${
+            db.employment.length
+              ? db.employment
+                  .slice(0, 4)
+                  .map((e) => {
+                    let u = db.users.find((z) => z.id === e.user) || {};
+                    return `<div class="list-row"><span class="avatar">${ico("user")}</span><div class="lrmain"><b>Новое трудоустройство</b><small>${esc(u.name || "Выпускник")} — ${esc(e.company || "")}</small></div><span class="date">${esc(e.start || "23 окт.")}</span></div>`;
+                  })
+                  .join("")
+              : '<div class="empty">Событий пока нет</div>'
+          }</div>`,
+        );
+      }
+      function graduates() {
+        let grads = db.users.filter((x) => x.role === "graduate");
+        return shell(
+          "Список выпускников",
+          uniNav,
+          `<div class="list-card">${
+            grads.length
+              ? grads
+                  .map((u) => {
+                    let r = db.resume[u.id] || {};
+                    return `<div class="list-row"><span class="avatar">${ico("user")}</span><div class="lrmain"><b>${esc(u.name)}</b><small>${esc(r.specialty || "Специальность не указана")}</small></div>${badge(db.employment.some((x) => x.user === u.id) ? "Трудоустроен" : "В поиске")}</div>`;
+                  })
+                  .join("")
+              : '<div class="empty">Пока нет зарегистрированных выпускников</div>'
+          }</div>`,
+        );
+      }
+      function setAna(k, v) {
+        window[k] = v;
+        render();
+      }
+      function yearOf(s) {
+        const m = String(s || "").match(/20\d{2}/);
+        return m ? m[0] : "2025";
+      }
+      function analytics() {
+        const allNames = [
+          "Разработка ПО",
+          "Data Science",
+          "DevOps",
+          "Тестирование (QA)",
+        ];
+        const years = [
+          ...new Set([
+            "2025",
+            "2024",
+            "2023",
+            ...db.employment.map((e) => yearOf(e.start)),
+          ]),
+        ]
+          .sort()
+          .reverse();
+        const year = years.includes(window.anaYear) ? window.anaYear : "2025";
+        const dir = window.anaDir || "IT";
+        const dirs = ["IT", ...allNames];
+        const grads = db.users.filter((x) => x.role === "graduate");
+        const employed = grads.filter((u) =>
+          db.employment.some(
+            (e) => e.user === u.id && yearOf(e.start) === year,
+          ),
+        ).length;
+        const rate = grads.length
+          ? Math.round((employed / grads.length) * 100)
+          : 0;
+        const searchPct = grads.length
+          ? Math.round(((grads.length - employed) / grads.length) * 100)
+          : 100;
+        const undecidedPct = Math.max(0, 100 - rate - searchPct);
+        const names = dir === "IT" ? allNames : [dir];
+        const pcts = names.map((n) =>
+          Math.min(
+            100,
+            Math.max(10, db.jobs.filter((j) => j.area === n).length * 17),
+          ),
+        );
+        return shell(
+          "Аналитика",
+          uniNav,
+          `<div class="analytics-tools"><details class="toolselect" ontoggle="if(this.open)document.querySelectorAll('details.toolselect').forEach(d=>{if(d!==this)d.open=false})"><summary class="tool" aria-label="Год выпуска">Выпуск: <b>${year}</b>${ico("chevron")}</summary><div class="tool-menu">${years.map((y) => `<button type="button" class="tool-option ${y === year ? "active" : ""}" onclick="setAna('anaYear','${y}')">${y}</button>`).join("")}</div></details><details class="toolselect" ontoggle="if(this.open)document.querySelectorAll('details.toolselect').forEach(d=>{if(d!==this)d.open=false})"><summary class="tool" aria-label="Направление">Направление: <b>${dir}</b>${ico("chevron")}</summary><div class="tool-menu">${dirs.map((d) => `<button type="button" class="tool-option ${d === dir ? "active" : ""}" onclick="setAna('anaDir','${d}')">${esc(d)}</button>`).join("")}</div></details></div><div class="analytics-grid"><div class="panel"><div class="row" style="gap:22px"><div class="donut" style="--p:${rate}%;--p2:${Math.min(100, rate + searchPct)}%"><div><b>${rate}%</b><small>трудоустроены</small></div></div><div class="legend"><div><span class="dot" style="background:#2856c5"></span>Трудоустроено — <span class="num">${rate}%</span></div><div><span class="dot" style="background:#b9cdf5"></span>В поиске — <span class="num">${searchPct}%</span></div><div><span class="dot" style="background:#e5ebf6"></span>Не определились — <span class="num">${undecidedPct}%</span></div></div></div></div><div class="panel"><h3 style="margin-bottom:18px">Трудоустройство по направлениям</h3><div class="hbars">${names.map((n, i) => `<div class="hbar"><span>${n}</span><span class="track"><i style="width:${pcts[i]}%"></i></span><b>${pcts[i]}%</b></div>`).join("")}</div></div></div>`,
+        );
+      }
+      function render() {
+        header();
+        let p = (location.hash.slice(1) || "home").split("?")[0];
+        let protectedRoutes = [
+          "graduate",
+          "resume",
+          "applications",
+          "history",
+          "profile",
+          "employer",
+          "employer-jobs",
+          "create-job",
+          "candidates",
+          "candidate",
+          "university",
+          "graduates",
+          "analytics",
+        ];
+        if (protectedRoutes.includes(p) && !me()) {
+          document.getElementById("app").innerHTML = auth(false);
+          return;
+        }
+        const onlyGrad = ["graduate", "resume", "applications", "profile"];
+        const onlyEmp = [
+          "employer",
+          "employer-jobs",
+          "create-job",
+          "candidates",
+          "candidate",
+        ];
+        const onlyUni = ["university", "graduates", "analytics"];
+        if (
+          (onlyGrad.includes(p) && role() !== "graduate") ||
+          (onlyEmp.includes(p) && role() !== "employer") ||
+          (onlyUni.includes(p) && role() !== "university") ||
+          (p === "history" && !["graduate", "university"].includes(role()))
+        ) {
+          p =
+            role() === "graduate"
+              ? "graduate"
+              : role() === "employer"
+                ? "employer"
+                : "university";
+          if (location.hash.slice(1) !== p) {
+            history.replaceState(null, "", "#" + p);
+          }
+        }
+        let map = {
+          home,
+          register: () => auth(true),
+          login: () => auth(false),
+          graduate,
+          jobs,
+          job,
+          resume,
+          applications,
+          history,
+          profile,
+          employer,
+          "employer-jobs": employerJobs,
+          "create-job": createJob,
+          candidates,
+          candidate,
+          companies,
+          university,
+          graduates,
+          analytics,
+        };
+        document.getElementById("app").innerHTML = (map[p] || home)();
+        window.scrollTo(0, 0);
+      }
+      window.addEventListener("hashchange", render);
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".toolselect"))
+          document
+            .querySelectorAll("details.toolselect[open]")
+            .forEach((d) => (d.open = false));
+      });
+      const originalRender = render;
+      render = function () {
+        originalRender();
+        if (
+          (location.hash || "").includes("analytics") &&
+          typeof Chart !== "undefined"
+        ) {
+          const canvas = document.getElementById("jobsChart");
+          if (canvas) {
+            canvas.style.display = "block";
+            document.getElementById("fallbackBars").style.display = "none";
+            if (window.ucChart) window.ucChart.destroy();
+            const labels = [
+              "Разработка ПО",
+              "Data Science",
+              "DevOps",
+              "Тестирование (QA)",
+            ];
+            window.ucChart = new Chart(canvas, {
+              type: "bar",
+              data: {
+                labels,
+                datasets: [
+                  {
+                    label: "Вакансии",
+                    data: labels.map(
+                      (n) => db.jobs.filter((j) => j.area === n).length,
+                    ),
+                    backgroundColor: "#2f63c9",
+                    borderRadius: 5,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+              },
+            });
+          }
+        }
+      };
+      document.getElementById("app").innerHTML =
+        '<div class="wrap panel"><h2>Загрузка UniCareer…</h2><p>Подключаемся к базе данных.</p></div>';
+      fetch("/api/state")
+        .then((r) => (r.ok ? r.json() : Promise.reject()))
+        .then((serverData) => {
+          if (serverData.users && serverData.jobs) {
+            const session = db.current;
+            const localResume = db.resume || {};
+            const localUsers = db.users || [];
+            db = {
+              ...db,
+              ...serverData,
+              current: session,
+              users: [
+                ...(serverData.users || []),
+                ...localUsers.filter(
+                  (u) =>
+                    !(serverData.users || []).some(
+                      (v) => v.email.toLowerCase() === u.email.toLowerCase(),
+                    ),
+                ),
+              ],
+              resume: { ...localResume, ...(serverData.resume || {}) },
+            };
+            demoUsers.forEach((u) => {
+              const i = db.users.findIndex(
+                (v) => String(v.email).toLowerCase() === u.email,
+              );
+              if (i < 0) db.users.push({ ...u });
+              else db.users[i] = { ...db.users[i], ...u };
+            });
+            normalizeJuniorJobs();
+            persistLocal();
+            render();
+          } else {
+            save();
+          }
+        })
+        .catch(() =>
+          msg("Сервер недоступен: данные будут сохранены только в браузере"),
+        )
+        .finally(() => render());
+    </script>
+  </body>
+</html>
